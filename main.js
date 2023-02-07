@@ -17,9 +17,15 @@ const alice2 = document.querySelector("#alice2");
 const alice3 = document.querySelector("#alice3");
 
 // get the first img to do the anime
-alice1.animate(aliceTumbling, aliceTiming);
+alice1.animate(aliceTumbling, aliceTiming)
+    .finished.then(() => {alice2.animate(aliceTumbling, aliceTiming)
+        .finished.then(() => {alice3.animate(aliceTumbling, aliceTiming)})});
 // note: animate() returns an Animation object
+// idea sprung from chatGPT (is this callback hell?)
 
-Promise.all(alice1.getAnimations().map((animation) => animation.finished))
-    .then(() => alice2.animate(aliceTumbling, aliceTiming))
-    .then(() => alice3.animate(aliceTumbling, aliceTiming));
+
+// right approach but alice3 animated wrong
+// Promise.all(alice1.getAnimations().map((animation) => animation.finished))
+//     .then(() => alice2.animate(aliceTumbling, aliceTiming))
+//     .then(() => alice3.animate(aliceTumbling, aliceTiming));
+
