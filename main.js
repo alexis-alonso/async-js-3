@@ -20,4 +20,6 @@ const alice3 = document.querySelector("#alice3");
 alice1.animate(aliceTumbling, aliceTiming);
 // note: animate() returns an Animation object
 
-
+Promise.all(alice1.getAnimations().map((animation) => animation.finished))
+    .then(() => alice2.animate(aliceTumbling, aliceTiming))
+    .then(() => alice3.animate(aliceTumbling, aliceTiming));
