@@ -17,9 +17,9 @@ const alice2 = document.querySelector("#alice2");
 const alice3 = document.querySelector("#alice3");
 
 // get the first img to do the anime
-alice1.animate(aliceTumbling, aliceTiming)
-    .finished.then(() => {alice2.animate(aliceTumbling, aliceTiming)
-        .finished.then(() => {alice3.animate(aliceTumbling, aliceTiming)})});
+// alice1.animate(aliceTumbling, aliceTiming)
+//     .finished.then(() => {alice2.animate(aliceTumbling, aliceTiming)
+//         .finished.then(() => {alice3.animate(aliceTumbling, aliceTiming)})});
 // note: animate() returns an Animation object
 // idea sprung from chatGPT (is this callback hell?)
 
@@ -29,3 +29,18 @@ alice1.animate(aliceTumbling, aliceTiming)
 //     .then(() => alice2.animate(aliceTumbling, aliceTiming))
 //     .then(() => alice3.animate(aliceTumbling, aliceTiming));
 
+
+// idea sprung again from chatGPT (using async and await)
+// make function animateImages return a promise and be 'await'ed
+async function animateImages() {
+    // all in one, animate alice1, then await will pause the execution of the function until alice1 is done
+    await alice1.animate(aliceTumbling, aliceTiming).finished;
+
+    // all in one again, once alice1 is done, do the same thing but on alice2
+    await alice2.animate(aliceTumbling, aliceTiming).finished;
+
+    // once alice2 is done, continue to alice3
+    alice3.animate(aliceTumbling,aliceTiming);
+}
+
+animateImages();
